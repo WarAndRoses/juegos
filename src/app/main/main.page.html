@@ -5,6 +5,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- Card del Juego 1 -->
   <ion-card>
     <ion-card-header>
       <ion-card-title>Juego 1</ion-card-title>
@@ -12,13 +13,12 @@
     </ion-card-header>
 
     <ion-card-content>
-      Este es el juego 1
+      <!-- Mostrar la imagen del Juego 1 -->
+      <ion-img [src]="imagenJuego1 || 'assets/imagenes/juego1.jpg'" alt="Juego 1"></ion-img>
     </ion-card-content>
-
-    <ion-button expand="full" (click)="modificarTiempoYValorPorTicket()">Modificar</ion-button>
-   
   </ion-card>
 
+  <!-- Card del Juego 2 -->
   <ion-card>
     <ion-card-header>
       <ion-card-title>Juego 2</ion-card-title>
@@ -26,14 +26,18 @@
     </ion-card-header>
 
     <ion-card-content>
-      Este es el juego 2
+      <!-- Mostrar la imagen del Juego 2 -->
+      <ion-img [src]="imagenJuego2 || 'assets/imagenes/juego2.jpg'" alt="Juego 2"></ion-img>
     </ion-card-content>
 
-    <ion-button fill="clear" (click)="modificarTiempoYValorPorTicket()" >Modificar</ion-button>
-    
+  
   </ion-card>
-<ion-content>
-  <ion-button color="success" (click)="IrAVentas()">Ir a ventas</ion-button>
-  <ion-button color="primary" (click)="irAEjecucion()">Ingresar</ion-button>
-</ion-content>
+
+  <!-- Botones adicionales -->
+  <ion-content>
+    <ion-button color="success" (click)="IrAVentas()">Ir a ventas</ion-button>
+    <ion-button color="primary" (click)="irAEjecucion()">Ingresar</ion-button>
+    <ion-button expand="full" (click)="modificarTiempoYValorPorTicket()">Modificar</ion-button>
+
+  </ion-content>
 </ion-content>

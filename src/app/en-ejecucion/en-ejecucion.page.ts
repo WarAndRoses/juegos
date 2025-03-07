@@ -14,8 +14,6 @@ import {
   IonList,
   IonItem,
   IonLabel,
-  IonInput,
-  IonText,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { add } from 'ionicons/icons';
@@ -38,8 +36,6 @@ import { AgregarClientesComponent } from '../components/agregar-clientes/agregar
     IonList,
     IonItem,
     IonLabel,
-    IonInput,
-    IonText,
   ],
   providers: [ModalController] // Asegúrate de que ModalController esté disponible como proveedor
 })
