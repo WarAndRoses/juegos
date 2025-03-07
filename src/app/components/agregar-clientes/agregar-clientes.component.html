@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Solicitar Datos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Nombre del niño</ion-label>
+      <ion-input [(ngModel)]="nombre" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Cantidad de tickets</ion-label>
+      <ion-input [(ngModel)]="cantidadTickets" type="number" min="1"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="full" (click)="guardar()">Guardar</ion-button>
+  <ion-button expand="full" color="light" (click)="cancelar()">Cancelar</ion-button>
+</ion-content>

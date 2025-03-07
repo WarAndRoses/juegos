@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Bienvenido {{ usuario }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Juego 1</ion-card-title>
+      <ion-card-subtitle>Juego inflable 1</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      Este es el juego 1
+    </ion-card-content>
+
+    <ion-button expand="full" (click)="modificarTiempoYValorPorTicket()">Modificar</ion-button>
+   
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Juego 2</ion-card-title>
+      <ion-card-subtitle>Juego inflable 2</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      Este es el juego 2
+    </ion-card-content>
+
+    <ion-button fill="clear" (click)="modificarTiempoYValorPorTicket()" >Modificar</ion-button>
+    
+  </ion-card>
+<ion-content>
+  <ion-button color="success" (click)="IrAVentas()">Ir a ventas</ion-button>
+  <ion-button color="primary" (click)="irAEjecucion()">Ingresar</ion-button>
+</ion-content>
+</ion-content>

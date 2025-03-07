@@ -14,7 +14,11 @@
   </ion-header>
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-input label="Ingrese nombre de Usuario" label-placement="floating" fill="outline" placeholder="Ingrese Usuario"  required
+    #usuarioInput></ion-input>
+<br>
+<ion-button (click)="IrMain(usuarioInput)">Ingresar</ion-button>
+
+
   </div>
 </ion-content>

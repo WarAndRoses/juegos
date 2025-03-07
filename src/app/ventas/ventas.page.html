@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ventas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Lista de ventas -->
+  <ion-list>
+    <ion-item *ngFor="let venta of ventas">
+      <ion-label>
+        <h2>{{ venta.nombre }}</h2>
+        <p>Tickets: {{ venta.cantidadTickets }}</p>
+        <p>Valor: ${{ venta.valorTotal }}</p>
+        <p>Fecha: {{ venta.fecha | date: 'medium' }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Mensaje si no hay ventas -->
+  <div *ngIf="ventas.length === 0" class="ion-text-center ion-padding">
+    <p>No hay ventas registradas.</p>
+  </div>
+</ion-content>

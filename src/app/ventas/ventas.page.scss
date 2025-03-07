@@ -1,0 +1,30 @@
+ion-list {
+    ion-item {
+      --padding-start: 0;
+      --inner-padding-end: 0;
+      margin-bottom: 10px;
+  
+      ion-label {
+        h2 {
+          font-size: 1.2em;
+          font-weight: bold;
+        }
+  
+        p {
+          font-size: 0.9em;
+          color: #666;
+        }
+      }
+    }
+  }
+  
+  .ion-text-center {
+    ion-icon {
+      font-size: 2em;
+      color: #888;
+    }
+  
+    p {
+      color: #888;
+    }
+  }

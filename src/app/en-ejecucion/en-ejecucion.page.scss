@@ -1,0 +1,23 @@
+ion-item {
+    --padding-start: 0; 
+    --inner-padding-end: 0; 
+    margin-bottom: 10px; 
+  }
+  
+  ion-input {
+    flex: 1;
+    margin-right: 10px; 
+  }
+  
+  ion-label {
+    margin-right: 10px; 
+    font-size: 1.2em; 
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  ion-button {
+    --padding-start: 10px;
+    --padding-end: 10px;
+  }

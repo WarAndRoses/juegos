@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Modificar Ticket</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Tiempo por Ticket (segundos)</ion-label>
+      <ion-input [(ngModel)]="tiempoPorTicket" type="number" min="0"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Valor por Ticket</ion-label>
+      <ion-button (click)="decrementarValor()">-</ion-button>
+      <ion-input [(ngModel)]="valorPorTicket" type="number" min="0" readonly></ion-input>
+      <ion-button (click)="incrementarValor()">+</ion-button>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="full" (click)="guardar()">Guardar</ion-button>
+  <ion-button expand="full" color="light" (click)="cancelar()">Cancelar</ion-button>
+</ion-content>
