@@ -4,39 +4,31 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <!-- Campo para el tiempo por ticket -->
-  <ion-item>
-    <ion-label position="floating">Tiempo por ticket (minutos)</ion-label>
-    <ion-input
-      type="number"
-      [(ngModel)]="tiempoPorTicket"
-      (ionChange)="tiempoPorTicket = ajustarValor(tiempoPorTicket)"
-    ></ion-input>
-  </ion-item>
-
-  <!-- Campo para el valor por ticket -->
-  <ion-item>
-    <ion-label position="floating">Valor por ticket</ion-label>
-    <ion-input
-      type="number"
-      [(ngModel)]="valorPorTicket"
-      (ionChange)="valorPorTicket = ajustarValor(valorPorTicket)"
-    ></ion-input>
-  </ion-item>
-
-  <!-- Selección de imagen -->
-  <ion-item>
-    <ion-label>Imagen del juego</ion-label>
-    <ion-button expand="block" (click)="seleccionarImagen()">Seleccionar Imagen</ion-button>
-  </ion-item>
-
-  <!-- Vista previa de la imagen seleccionada -->
-  <ion-item *ngIf="imagenSeleccionada || imagen">
-    <ion-img [src]="imagenSeleccionada || imagen" alt="Imagen del juego"></ion-img>
-  </ion-item>
-
-  <!-- Botones para guardar o cancelar -->
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Seleccionar Juego</ion-label>
+      <ion-select [(ngModel)]="juegoSeleccionado">
+        <ion-select-option value="juego1">Juego 1</ion-select-option>
+        <ion-select-option value="juego2">Juego 2</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tiempo por Ticket (segundos)</ion-label>
+      <ion-input [(ngModel)]="tiempoPorTicket" type="number" min="0"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Valor por Ticket</ion-label>
+      <ion-button (click)="decrementarValor()">-</ion-button>
+      <ion-input [(ngModel)]="valorPorTicket" type="number" min="0" readonly></ion-input>
+      <ion-button (click)="incrementarValor()">+</ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label>Imagen del Juego</ion-label>
+      <ion-button (click)="seleccionarImagen()">Seleccionar Imagen</ion-button>
+      <ion-img *ngIf="imagenSeleccionada" [src]="imagenSeleccionada"></ion-img>
+    </ion-item>
+  </ion-list>
   <ion-button expand="full" (click)="guardar()">Guardar</ion-button>
   <ion-button expand="full" color="light" (click)="cancelar()">Cancelar</ion-button>
 </ion-content>

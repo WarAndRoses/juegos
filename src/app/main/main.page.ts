@@ -39,13 +39,16 @@ import { ModificarTicketComponent } from '../components/modificar-ticket/modific
     IonCardTitle,
     IonImg,
   ],
+  providers: [ModalController] // Asegúrate de que ModalController esté disponible como proveedor
 })
 export class MainPage implements OnInit {
   usuario: string;
   imagenJuego1: string | null = null; // Ruta de la imagen del Juego 1
   imagenJuego2: string | null = null; // Ruta de la imagen del Juego 2
-  tiempoPorTicket: number = 300; // Tiempo por ticket en segundos (por defecto 5 minutos)
-  valorPorTicket: number = 1000; // Valor por ticket (por defecto 1000)
+  tiempoPorTicketJuego1: number = 300; // Tiempo por ticket en segundos para Juego 1
+  valorPorTicketJuego1: number = 1000; // Valor por ticket para Juego 1
+  tiempoPorTicketJuego2: number = 300; // Tiempo por ticket en segundos para Juego 2
+  valorPorTicketJuego2: number = 1000; // Valor por ticket para Juego 2
 
   constructor(private router: Router, private modalController: ModalController) {
     const navigation = this.router.getCurrentNavigation();
@@ -60,8 +63,10 @@ export class MainPage implements OnInit {
     this.imagenJuego2 = localStorage.getItem('imagenJuego2');
 
     // Recuperar el tiempo y valor por ticket desde el localStorage
-    this.tiempoPorTicket = parseInt(localStorage.getItem('tiempoPorTicket') || '300', 10);
-    this.valorPorTicket = parseInt(localStorage.getItem('valorPorTicket') || '1000', 10);
+    this.tiempoPorTicketJuego1 = parseInt(localStorage.getItem('tiempoPorTicketJuego1') || '300', 10);
+    this.valorPorTicketJuego1 = parseInt(localStorage.getItem('valorPorTicketJuego1') || '1000', 10);
+    this.tiempoPorTicketJuego2 = parseInt(localStorage.getItem('tiempoPorTicketJuego2') || '300', 10);
+    this.valorPorTicketJuego2 = parseInt(localStorage.getItem('valorPorTicketJuego2') || '1000', 10);
   }
 
   ngOnInit(): void {
@@ -73,33 +78,53 @@ export class MainPage implements OnInit {
     const modal = await this.modalController.create({
       component: ModificarTicketComponent,
       componentProps: {
-        tiempoPorTicket: this.tiempoPorTicket / 60, // Convertir a minutos
-        valorPorTicket: this.valorPorTicket,
+        tiempoPorTicket: this.tiempoPorTicketJuego1 / 60, // Convertir a minutos
+        valorPorTicket: this.valorPorTicketJuego1,
         imagen: this.imagenJuego1, // Pasar la imagen actual del Juego 1 (o Juego 2)
       },
     });
 
     modal.onDidDismiss().then(async (data) => {
       if (data.data) {
-        const { tiempo, valor, imagen } = data.data;
+        const { juego, tiempo, valor, imagen } = data.data;
 
         // Actualizar el tiempo y el valor por ticket
-        this.tiempoPorTicket = tiempo * 60; // Convertir a segundos
-        this.valorPorTicket = valor;
-        localStorage.setItem('tiempoPorTicket', this.tiempoPorTicket.toString());
-        localStorage.setItem('valorPorTicket', this.valorPorTicket.toString());
+        if (juego === 'juego1') {
+          this.tiempoPorTicketJuego1 = tiempo * 60; // Convertir a segundos
+          this.valorPorTicketJuego1 = valor;
+          localStorage.setItem('tiempoPorTicketJuego1', this.tiempoPorTicketJuego1.toString());
+          localStorage.setItem('valorPorTicketJuego1', this.valorPorTicketJuego1.toString());
 
-        // Guardar la nueva imagen si se seleccionó una
-        if (imagen) {
-          const nombreArchivo = `juego1_${new Date().getTime()}.jpg`; // Cambiar a juego2 si es necesario
-          const archivoGuardado = await Filesystem.writeFile({
-            path: nombreArchivo,
-            data: await this.convertirUriABase64(imagen),
-            directory: Directory.Data,
-          });
+          // Guardar la nueva imagen si se seleccionó una
+          if (imagen) {
+            const nombreArchivo = `juego1_${new Date().getTime()}.jpg`;
+            const archivoGuardado = await Filesystem.writeFile({
+              path: nombreArchivo,
+              data: await this.convertirUriABase64(imagen),
+              directory: Directory.Data,
+            });
 
-          this.imagenJuego1 = archivoGuardado.uri; // Cambiar a imagenJuego2 si es necesario
-          localStorage.setItem('imagenJuego1', archivoGuardado.uri); // Cambiar a imagenJuego2 si es necesario
+            this.imagenJuego1 = archivoGuardado.uri;
+            localStorage.setItem('imagenJuego1', archivoGuardado.uri);
+          }
+        } else if (juego === 'juego2') {
+          this.tiempoPorTicketJuego2 = tiempo * 60; // Convertir a segundos
+          this.valorPorTicketJuego2 = valor;
+          localStorage.setItem('tiempoPorTicketJuego2', this.tiempoPorTicketJuego2.toString());
+          localStorage.setItem('valorPorTicketJuego2', this.valorPorTicketJuego2.toString());
+
+          // Guardar la nueva imagen si se seleccionó una
+          if (imagen) {
+            const nombreArchivo = `juego2_${new Date().getTime()}.jpg`;
+            const archivoGuardado = await Filesystem.writeFile({
+              path: nombreArchivo,
+              data: await this.convertirUriABase64(imagen),
+              directory: Directory.Data,
+            });
+
+            this.imagenJuego2 = archivoGuardado.uri;
+            localStorage.setItem('imagenJuego2', archivoGuardado.uri);
+          }
         }
 
         alert('Cambios guardados correctamente.');

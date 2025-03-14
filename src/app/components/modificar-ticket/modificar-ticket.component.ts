@@ -11,6 +11,9 @@ import {
   IonInput,
   IonButton,
   IonImg,
+  IonSelect,
+  IonSelectOption,
+  IonList
 } from '@ionic/angular/standalone';
 import { ModalController } from '@ionic/angular/standalone';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
@@ -32,15 +35,20 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
     IonInput,
     IonButton,
     IonImg,
+    IonSelect,
+    IonSelectOption,
+    IonList
   ],
+  providers: [ModalController] // Asegúrate de que ModalController esté disponible como proveedor
 })
 export class ModificarTicketComponent {
   @Input() tiempoPorTicket: number = 5; // Tiempo por ticket en minutos
   @Input() valorPorTicket: number = 1000; // Valor por ticket
   @Input() imagen: string | null = null; // Imagen actual del juego
-  @Output() guardarCambios = new EventEmitter<{ tiempo: number; valor: number; imagen: string | null }>();
+  @Output() guardarCambios = new EventEmitter<{ juego: string; tiempo: number; valor: number; imagen: string | null }>();
 
   imagenSeleccionada: string | null = null; // Imagen seleccionada en el modal
+  juegoSeleccionado: string = 'juego1'; // Juego seleccionado por defecto
 
   constructor(private modalController: ModalController) {}
 
@@ -58,7 +66,12 @@ export class ModificarTicketComponent {
         this.imagenSeleccionada = imagen.webPath;
       }
     } catch (error) {
-      console.error('Error al seleccionar la imagen:', error);
+      if (typeof error === 'object' && error !== null && 'message' in error && (error as any).message.includes('User cancelled photos app')) {
+        // El usuario canceló la selección de la foto, no hacer nada
+        console.log('El usuario canceló la selección de la foto.');
+      } else {
+        console.error('Error al seleccionar la imagen:', error);
+      }
     }
   }
 
@@ -78,6 +91,18 @@ export class ModificarTicketComponent {
     return Math.round(valor / 500) * 500;
   }
 
+  // Función para incrementar el valor por ticket en 500
+  incrementarValor() {
+    this.valorPorTicket += 500;
+  }
+
+  // Función para decrementar el valor por ticket en 500
+  decrementarValor() {
+    if (this.valorPorTicket - 500 >= 0) {
+      this.valorPorTicket -= 500;
+    }
+  }
+
   // Función para guardar los cambios y cerrar el modal
   guardar() {
     // Validar y ajustar los valores
@@ -86,6 +111,7 @@ export class ModificarTicketComponent {
 
     // Emitir los cambios
     this.guardarCambios.emit({
+      juego: this.juegoSeleccionado,
       tiempo: this.tiempoPorTicket,
       valor: this.valorPorTicket,
       imagen: this.imagenSeleccionada,

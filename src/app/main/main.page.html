@@ -6,7 +6,7 @@
 
 <ion-content [fullscreen]="true">
   <!-- Card del Juego 1 -->
-  <ion-card>
+  <ion-card id="juego1">
     <ion-card-header>
       <ion-card-title>Juego 1</ion-card-title>
       <ion-card-subtitle>Juego inflable 1</ion-card-subtitle>
@@ -19,7 +19,7 @@
   </ion-card>
 
   <!-- Card del Juego 2 -->
-  <ion-card>
+  <ion-card id="juego2">
     <ion-card-header>
       <ion-card-title>Juego 2</ion-card-title>
       <ion-card-subtitle>Juego inflable 2</ion-card-subtitle>
@@ -29,8 +29,6 @@
       <!-- Mostrar la imagen del Juego 2 -->
       <ion-img [src]="imagenJuego2 || 'assets/imagenes/juego2.jpg'" alt="Juego 2"></ion-img>
     </ion-card-content>
-
-  
   </ion-card>
 
   <!-- Botones adicionales -->
@@ -38,6 +36,5 @@
     <ion-button color="success" (click)="IrAVentas()">Ir a ventas</ion-button>
     <ion-button color="primary" (click)="irAEjecucion()">Ingresar</ion-button>
     <ion-button expand="full" (click)="modificarTiempoYValorPorTicket()">Modificar</ion-button>
-
   </ion-content>
 </ion-content>
